@@ -1,14 +1,21 @@
 import { Mail, User, X } from "lucide-react";
 import { FormEvent } from "react";
+import { Button } from "../../components/button";
 
 interface ConfirmTripModalProps{
   closeConfirmTripModal: () => void
   createTrip: (event: FormEvent<HTMLFormElement>) => void
+  setOwnerName:(name: string) => void
+  setOwnerEmail:(email: string) => void
+  destination: string
 }
 
 export function ConfirmTripModal({
   closeConfirmTripModal, 
   createTrip,
+  setOwnerName,
+  setOwnerEmail,
+  destination
 } : ConfirmTripModalProps){
   return(
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
@@ -21,7 +28,8 @@ export function ConfirmTripModal({
             </button>
           </div>
           <p className="text-sm text-zinc-400">
-            Para concluir a criação da viagem para <span className="text-zinc-100 font-semibold">Florianópolis, Brasil</span> nas datas de <span className="text-zinc-100 font-semibold">16 a 27 de Agosto de 2024</span> preencha seus dados abaixo:
+            Para concluir a criação da viagem para <span className="text-zinc-100 font-semibold">{destination}</span> preencha seus dados abaixo:
+            {/* nas datas de <span className="text-zinc-100 font-semibold">16 a 27 de Agosto de 2024</span> preencha seus dados abaixo: */}
           </p>
         </div>
 
@@ -31,7 +39,8 @@ export function ConfirmTripModal({
             <input 
               name="name" 
               placeholder="Seu nome completo" 
-              className="bg-transparent text-lg placeholder-zinc-400 flex-1 outline-none" 
+              className="bg-transparent text-lg placeholder-zinc-400 flex-1 outline-none"
+              onChange={event => setOwnerName(event.target.value)} 
             />
           </div>
 
@@ -41,13 +50,14 @@ export function ConfirmTripModal({
               type="email" 
               name="email" 
               placeholder="Seu e-mail pessoal" 
-              className="bg-transparent text-lg placeholder-zinc-400 flex-1 outline-none" 
+              className="bg-transparent text-lg placeholder-zinc-400 flex-1 outline-none"
+              onChange={event => setOwnerEmail(event.target.value)} 
             />
           </div>
 
-          <button type="submit" className="w-full justify-center bg-lime-300 text-lime-950 rounded-lg px-5 h-11 font-medium flex items-center gap-2 hover:bg-lime-400">
+          <Button type="submit" variant="primary" size="full">
             Confirmar criação da viagem
-          </button>
+          </Button>
         </form>
 
       </div>
